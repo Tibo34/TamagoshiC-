@@ -120,11 +120,9 @@ namespace Tamagoshi.jeu
                 if (t.getEnergy()<=0) {
                     remove.Add(t);
                 }
-            }
-            foreach(Tamagoshis t in remove)
-            {
-                tam.Remove(t);
-            }
+            }          
+            tam.Remove(remove);
+            
         }
 
         public Boolean isEnd()
