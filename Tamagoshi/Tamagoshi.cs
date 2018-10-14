@@ -40,6 +40,7 @@ namespace Tamagoshi.tamagoshi
                     return false;
                 }
             }
+
             public Boolean parle(int n)
             {
                 if (energy > 4)
@@ -53,6 +54,16 @@ namespace Tamagoshi.tamagoshi
                     return false;
                 }
             }
+
+        public int getAge()
+        {
+            return age;
+        }
+
+        public String getName()
+        {
+            return name;
+        }
 
         public Boolean mange()
             {

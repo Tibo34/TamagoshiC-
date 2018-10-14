@@ -14,6 +14,8 @@ namespace Tamagoshi.jeu
     {
         private ArrayList listDepart;
         private ArrayList listInLife;
+        private int hard;
+        private int nbTour = 5;
 
         public TamaGame()
         {
@@ -22,10 +24,12 @@ namespace Tamagoshi.jeu
             initialisation();
         }
 
-        public TamaGame(String[] name)
+        public TamaGame(String[] name,int h)
         {
             this.listInLife = new ArrayList();
             this.listDepart = new ArrayList();
+            this.hard = h;
+            this.nbTour = h;
             initialisation(name);
         }
 
@@ -73,8 +77,48 @@ namespace Tamagoshi.jeu
                 Tamagoshis tam =(Tamagoshis) listInLife[choix];
                 tam.mange();
                 consommeEnergieAll(listInLife);
+                this.nbTour--;
+            }
+            this.End();
+        }
+
+        private void End()
+        {
+            int score = CalculScore();
+            AfficheTamagoshi();
+            Utilisateur.afficheEcran("Le score est : " + score);
+        }
+
+        private void AfficheTamagoshi()
+        {
+            String mess = "";
+            foreach(Tamagoshis tam in listDepart)
+            {
+                mess = "";
+                mess += tam.getName();
+                if (listInLife.Contains(tam))
+                {
+                    mess += "  est toujours avec nous félicitation !!";
+                }
+                else
+                {
+                    mess += " n'as pas survécu, je ne vous félicite pas ";
+                }
+                Utilisateur.afficheEcran(mess);
             }
         }
+
+        private int CalculScore()
+        {
+            int score = 0;
+            foreach(Tamagoshis tam in listInLife)
+            {
+                score += tam.getAge()*hard;
+            }
+            return score;
+        }
+
+
 
         private int PlayerChoice() {
 
@@ -127,7 +171,7 @@ namespace Tamagoshi.jeu
 
         public Boolean isEnd()
         {
-            return listInLife.Count<=0;
+            return listInLife.Count<=0||this.hard<=0;
              
         }
 
