@@ -84,7 +84,7 @@ namespace Tamagoshi.tamagoshi
                 }
             }
 
-            public Boolean consommeEnergie()
+            public virtual Boolean consommeEnergie()
             {
                 energy--;
                 if (energy <= 0)

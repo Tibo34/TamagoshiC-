@@ -11,7 +11,8 @@ namespace Tamagoshi
     {
         public static void Main(String[] args)
         {
-            TamaGame game = new TamaGame();
+            String []names= { "Roro", "Zizi", "Riri", "Fifi" };
+            TamaGame game = new TamaGame(names,5);
             game.play();
         }
     }

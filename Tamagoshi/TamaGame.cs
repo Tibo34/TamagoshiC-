@@ -16,11 +16,13 @@ namespace Tamagoshi.jeu
         private ArrayList listInLife;
         private int hard;
         private int nbTour = 5;
+        private Random rand;
 
         public TamaGame()
         {
             this.listInLife = new ArrayList();
             this.listDepart = new ArrayList();
+            this.rand = new Random();
             initialisation();
         }
 
@@ -37,7 +39,22 @@ namespace Tamagoshi.jeu
 
         private void Addlist(String name)
         {
-            Tamagoshis tam = new Tamagoshis(name);
+            int num = rand.Next(3);
+            Tamagoshis tam;
+            if (num < 2)
+            {
+                 tam = new Tamagoshis(name);
+            }
+            else
+            {
+                if (num == 2)
+                {
+                    tam = new GrosJoueur(name);
+                }
+                else {
+                    tam = new GrosMangeur(name);
+                }
+            }
             listDepart.Add(tam);
             listInLife.Add(tam);
             
@@ -160,12 +177,26 @@ namespace Tamagoshi.jeu
             ArrayList remove = new ArrayList();
             foreach(Tamagoshis t in tam)
             {
-                t.consommeEnergie();
+               if(t is GrosJoueur)
+                {
+                    ((GrosJoueur) t).consommeFun();
+                }
+                if (t is GrosMangeur)
+                {
+                    ((GrosMangeur)t).consommeEnergie();
+                }
+                else
+                {
+                    t.consommeEnergie();
+                }
                 if (t.getEnergy()<=0) {
                     remove.Add(t);
                 }
-            }          
-            tam.Remove(remove);
+            }
+            foreach (Tamagoshis t in remove)
+            {
+                tam.Remove(t);
+            }
             
         }
 
